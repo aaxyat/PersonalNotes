@@ -2,5 +2,5 @@
 
 
 ## Guides
-- [Setup WSL](WSL.md) - Setting up Windows Subsystem for Linux (WSL) with Fish shell, Bash, and Zsh.
+- [Setup WSL](Guides/WSL.md) - Setting up Windows Subsystem for Linux (WSL) with Fish shell, Bash, and Zsh.
 
