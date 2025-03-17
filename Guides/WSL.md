@@ -105,11 +105,15 @@ fisher install jorgebucaran/nvm.fish
 
 ```bash
 echo "Enter Node.js version to install (default: lts):"
-read node_version
-node_version=${node_version:-lts}
+read -l node_version
+
+if test -z "$node_version"
+    set node_version lts
+end
 
 nvm install $node_version
 nvm use $node_version
+
 ```
 
 ---
@@ -124,11 +128,15 @@ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer 
 ### 2️⃣ Install Python with Pyenv
 ```bash
 echo "Enter Python version to install (default: 3.12.8):"
-read python_version
-python_version=${python_version:-3.12.8}
+read -l python_version
+
+if test -z "$python_version"
+    set python_version 3.12.8
+end
 
 pyenv install $python_version
 pyenv global $python_version
+
 ```
 
 ### 3️⃣ Install Poetry (Python Package Manager)
