@@ -172,10 +172,13 @@ git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git
 
 ## ⚙️ Configure Fish Shell
 
-### Add the following to `~/.config/fish/config.fish`
+Add the following to `~/.config/fish/config.fish`
 
 ```bash
-cat > ~/.config/fish/config.fish << 'EOL'
+micro ~/.config/fish/config.fish
+```
+Paste this inside config
+```bash 
 # Fish configuration
 
 # Set aliases
@@ -217,7 +220,6 @@ set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
-EOL
 ```
 
 ---
@@ -227,12 +229,15 @@ EOL
 Append the following to `~/.bashrc`:
 
 ```bash
-cat >> ~/.bashrc << 'EOL'
+micro  ~/.bashrc
+```
+Paste This:
+```bash
 # Launch Fish automatically in interactive Bash sessions
 if [[ $- == *i* ]] && [ -z "$BASH_EXECUTION_STRING" ]; then
     exec fish
 fi
-EOL
+
 ```
 
 ---
