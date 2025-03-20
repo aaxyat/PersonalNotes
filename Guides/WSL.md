@@ -6,9 +6,10 @@ This guide will help you set up **WSL (Windows Subsystem for Linux)** with essen
 
 ## 📌 Initial Setup
 
-### 1️⃣ Update Packages
+### 1️⃣ Update Packages and basic setup
 ```bash
 sudo apt update
+sudo apt install curl wget
 ```
 
 ### 2️⃣ Install `nala` (Faster APT Package Manager)
@@ -23,7 +24,7 @@ sudo nala upgrade -y
 
 ### 4️⃣ Install Fish Shell
 ```bash
-sudo nala install -y fish
+sudo nala install -y fish 
 ```
 
 ### 5️⃣ Switch to Fish Shell
