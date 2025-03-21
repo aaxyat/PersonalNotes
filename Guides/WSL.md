@@ -24,18 +24,94 @@ sudo nala upgrade -y
 
 ### 4️⃣ Install Fish Shell
 ```bash
-sudo nala install -y fish 
+sudo nala install -y fish micro
+```
+---
+## 📂 Create Directory Structure
+Organize your projects and Fish configuration:
+
+```bash
+mkdir -p ~/Github ~/Projects
+mkdir -p ~/.config/fish/
 ```
 
-### 5️⃣ Switch to Fish Shell
+
+
+---
+
+## ⚙️ Configure Fish Shell
+Add the following to `~/.config/fish/config.fish`
 ```bash
-fish
+micro ~/.config/fish/config.fish
+```
+Paste this inside config
+```bash 
+# Fish configuration
+
+# Set aliases
+alias ll 'ls -la'
+alias update 'sudo nala update && sudo nala upgrade -y'
+alias neofetch 'fastfetch'
+alias g 'cd ~/Github'
+alias p 'cd ~/Projects'
+
+# Add local bin to path
+if test -d "$HOME/.local/bin"
+    set -gx PATH $HOME/.local/bin $PATH
+end
+
+# Poetry setup
+if test -d "$HOME/.poetry/bin"
+    set -gx PATH $HOME/.poetry/bin $PATH
+end
+
+# uv setup
+if test -d "$HOME/.cargo/bin"
+    set -gx PATH $HOME/.cargo/bin $PATH
+end
+
+# Pyenv setup
+set -x PYENV_ROOT $HOME/.pyenv
+set -x PATH $PYENV_ROOT/bin $PATH
+if command -v pyenv 1>/dev/null 2>&1
+    status is-login; and pyenv init --path | source
+    pyenv init - | source
+end
+
+# NVM setup
+set -gx NVM_DIR "$HOME/.nvm"
+# nvm.fish plugin handles the rest
+
+# pnpm setup
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+end
 ```
 
 ---
 
-## 📦 Install Essential Packages
+## 🛠️ Configure Bash to Launch Fish
+Append the following to `~/.bashrc`:
+```bash
+micro  ~/.bashrc
+```
+Paste This:
+```bash
+# Launch Fish automatically in interactive Bash sessions
+if [[ $- == *i* ]] && [ -z "$BASH_EXECUTION_STRING" ]; then
+    exec fish
+fi
 
+```
+---
+### 5️⃣ Switch to Fish Shell
+```bash
+fish
+```
+---
+
+## 📦 Install Essential Packages
 Run the following command to install commonly used development tools:
 
 ```bash
@@ -60,24 +136,12 @@ sudo nala install -y \
   libxmlsec1-dev \
   libffi-dev \
   liblzma-dev \
-  micro
+  build-essential \
+  cmake \
+  libboost-all-dev
 ```
-
 ---
-
-## 📂 Create Directory Structure
-
-Organize your projects and Fish configuration:
-
-```bash
-mkdir -p ~/Github ~/Projects
-mkdir -p ~/.config/fish/
-```
-
----
-
 ## 🐟 Set Up Fish Shell
-
 ### 1️⃣ Install Fisher (Plugin Manager for Fish)
 ```bash
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
@@ -168,80 +232,19 @@ git config --global init.defaultBranch main
 git config --global core.editor "micro"
 git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
 ```
-
----
-
-## ⚙️ Configure Fish Shell
-
-Add the following to `~/.config/fish/config.fish`
-
+## Install Fastfetch from source
 ```bash
-micro ~/.config/fish/config.fish
+cd /tmp
+git clone https://github.com/fastfetch-cli/fastfetch.git
+cd /tmp/fastfetch
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+make install
+cd /tmp
+rm -rf /tmp/fastfetch
+cd ~
 ```
-Paste this inside config
-```bash 
-# Fish configuration
-
-# Set aliases
-alias ll 'ls -la'
-alias update 'sudo nala update && sudo nala upgrade -y'
-alias neofetch 'fastfetch'
-alias g 'cd ~/Github'
-alias p 'cd ~/Projects'
-
-# Add local bin to path
-if test -d "$HOME/.local/bin"
-    set -gx PATH $HOME/.local/bin $PATH
-end
-
-# Poetry setup
-if test -d "$HOME/.poetry/bin"
-    set -gx PATH $HOME/.poetry/bin $PATH
-end
-
-# uv setup
-if test -d "$HOME/.cargo/bin"
-    set -gx PATH $HOME/.cargo/bin $PATH
-end
-
-# Pyenv setup
-set -x PYENV_ROOT $HOME/.pyenv
-set -x PATH $PYENV_ROOT/bin $PATH
-if command -v pyenv 1>/dev/null 2>&1
-    status is-login; and pyenv init --path | source
-    pyenv init - | source
-end
-
-# NVM setup
-set -gx NVM_DIR "$HOME/.nvm"
-# nvm.fish plugin handles the rest
-
-# pnpm setup
-set -gx PNPM_HOME "$HOME/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
-end
-```
-
----
-
-## 🛠️ Configure Bash to Launch Fish
-
-Append the following to `~/.bashrc`:
-
-```bash
-micro  ~/.bashrc
-```
-Paste This:
-```bash
-# Launch Fish automatically in interactive Bash sessions
-if [[ $- == *i* ]] && [ -z "$BASH_EXECUTION_STRING" ]; then
-    exec fish
-fi
-
-```
-
----
 
 ## ✅ Complete the Setup
 
