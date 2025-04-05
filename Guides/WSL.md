@@ -39,16 +39,6 @@ sudo nala install -y \
   build-essential \
   cmake \
   libboost-all-dev
-echo "Enter your Git username:"
-read git_username
-echo "Enter your Git email:"
-read git_email
-
-git config --global user.name "$git_username"
-git config --global user.email "$git_email"
-git config --global init.defaultBranch main
-git config --global core.editor "micro"
-git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
 
 curl -sSL https://astral.sh/uv/install.sh | bash
 
@@ -166,6 +156,20 @@ fisher install jorgebucaran/nvm.fish
 ```
 
 ---
+
+## Setup Git
+```bash
+echo "Enter your Git username:"
+read git_username
+echo "Enter your Git email:"
+read git_email
+
+git config --global user.name "$git_username"
+git config --global user.email "$git_email"
+git config --global init.defaultBranch main
+git config --global core.editor "micro"
+git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
+```
 
 ## 🟢 Set Up Node.js with NVM
 
