@@ -10,32 +10,61 @@ This guide will help you set up **WSL (Windows Subsystem for Linux)** with essen
 ```bash
 sudo apt update
 sudo apt install curl wget
-```
-
-### 2️⃣ Install `nala` (Faster APT Package Manager)
-```bash
 curl https://gitlab.com/volian/volian-archive/-/raw/main/install-nala.sh | bash
-```
-
-### 3️⃣ Upgrade Packages Using `nala`
-```bash
 sudo nala upgrade -y
-```
-
-### 4️⃣ Install Fish Shell
-```bash
 sudo nala install -y fish micro
-```
----
-## 📂 Create Directory Structure
-Organize your projects and Fish configuration:
-
-```bash
 mkdir -p ~/Github ~/Projects
 mkdir -p ~/.config/fish/
+sudo nala install -y \
+  build-essential \
+  curl \
+  git \
+  wget \
+  unzip \
+  zip \
+  htop \
+  libssl-dev \
+  zlib1g-dev \
+  libbz2-dev \
+  libreadline-dev \
+  libsqlite3-dev \
+  llvm \
+  libncursesw5-dev \
+  xz-utils \
+  tk-dev \
+  libxml2-dev \
+  libxmlsec1-dev \
+  libffi-dev \
+  liblzma-dev \
+  build-essential \
+  cmake \
+  libboost-all-dev
+echo "Enter your Git username:"
+read git_username
+echo "Enter your Git email:"
+read git_email
+
+git config --global user.name "$git_username"
+git config --global user.email "$git_email"
+git config --global init.defaultBranch main
+git config --global core.editor "micro"
+git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
+
+curl -sSL https://astral.sh/uv/install.sh | bash
+
+cd /tmp
+git clone https://github.com/fastfetch-cli/fastfetch.git
+cd /tmp/fastfetch
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+make install
+cd /tmp
+rm -rf /tmp/fastfetch
+cd ~
+
+curl -sSL https://install.python-poetry.org | python3 -
 ```
-
-
 
 ---
 
@@ -113,37 +142,6 @@ fi
 fish
 ```
 ---
-
-## 📦 Install Essential Packages
-Run the following command to install commonly used development tools:
-
-```bash
-sudo nala install -y \
-  build-essential \
-  curl \
-  git \
-  wget \
-  unzip \
-  zip \
-  htop \
-  libssl-dev \
-  zlib1g-dev \
-  libbz2-dev \
-  libreadline-dev \
-  libsqlite3-dev \
-  llvm \
-  libncursesw5-dev \
-  xz-utils \
-  tk-dev \
-  libxml2-dev \
-  libxmlsec1-dev \
-  libffi-dev \
-  liblzma-dev \
-  build-essential \
-  cmake \
-  libboost-all-dev
-```
----
 ## 🐟 Set Up Fish Shell
 ### 1️⃣ Install Fisher (Plugin Manager for Fish)
 ```bash
@@ -207,47 +205,6 @@ pyenv global $python_version
 
 ```
 
-### 3️⃣ Install Poetry (Python Package Manager)
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-### 4️⃣ Install UV (Faster Python Package Installer)
-```bash
-curl -sSL https://astral.sh/uv/install.sh | bash
-```
-
----
-
-## 🔧 Configure Git
-
-Set up Git with your user details:
-
-```bash
-echo "Enter your Git username:"
-read git_username
-echo "Enter your Git email:"
-read git_email
-
-git config --global user.name "$git_username"
-git config --global user.email "$git_email"
-git config --global init.defaultBranch main
-git config --global core.editor "micro"
-git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
-```
-## Install Fastfetch from source
-```bash
-cd /tmp
-git clone https://github.com/fastfetch-cli/fastfetch.git
-cd /tmp/fastfetch
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make install
-cd /tmp
-rm -rf /tmp/fastfetch
-cd ~
-```
 
 ## ✅ Complete the Setup
 
