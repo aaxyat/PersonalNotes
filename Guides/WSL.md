@@ -183,6 +183,7 @@ end
 
 nvm install $node_version
 nvm use $node_version
+set --universal nvm_default_version $node_version
 
 ```
 
