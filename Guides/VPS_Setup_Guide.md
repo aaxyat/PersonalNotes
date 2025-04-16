@@ -114,27 +114,20 @@ sudo supervisorctl update
 ## 🐳 Docker Setup
 
 ```bash
-# Remove existing Docker packages (if installed)
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc
-    sudo nala remove -y $pkg
-end
+# Check for and remove any existing Docker packages
+sudo nala remove -y docker.io docker-doc docker-compose podman-docker containerd.io runc
 
-# Install prerequisites (lsb-release, htop, etc.)
-sudo nala install -y lsb-release htop
+# Install prerequisites
+sudo nala install -y lsb-release htop ca-certificates curl
 
 # Add Docker's official GPG key
-sudo nala update
-sudo nala install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-# Set the codename for your Debian version
-set codename (lsb_release -cs)
-
-# Add Docker's repository
-echo "deb [arch="(dpkg --print-architecture)"] signed-by=/etc/apt/keyrings/docker.asc https://download.docker.com/linux/debian $codename stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# Set up the Docker repository (fixed syntax for fish shell)
+set -l codename (lsb_release -cs)
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $codename stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Update package list and install Docker
 sudo nala update
