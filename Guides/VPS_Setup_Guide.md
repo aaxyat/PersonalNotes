@@ -22,8 +22,8 @@ nala install -y fish git curl wget nodejs npm
 
 # Create and configure swap file
 sudo fallocate -l 8096M /swapfile
+sudo chmod 600 /swapfile  # Correct permissions before mkswap
 sudo mkswap /swapfile
-sudo chmod 0600 /swapfile
 sudo swapon /swapfile
 echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
 
@@ -85,8 +85,8 @@ omf install bira
 # Install supervisor and stress-ng
 sudo nala update && sudo nala install -y supervisor stress-ng
 
-# Create Supervisor configuration for stress-ng
-cat <<EOL | sudo tee /etc/supervisor/conf.d/stress.conf
+# Create Supervisor configuration for stress-ng (using bash syntax)
+sudo bash -c 'cat > /etc/supervisor/conf.d/stress.conf << EOL
 [program:cpu_stress]
 command=/usr/bin/stress-ng --cpu 4 --cpu-load 15
 directory=/usr/bin/
@@ -104,7 +104,7 @@ autostart=true
 autorestart=true
 redirect_stderr=true
 stdout_logfile=/var/log/stress.log
-EOL
+EOL'
 
 # Reload Supervisor configuration
 sudo supervisorctl reread
