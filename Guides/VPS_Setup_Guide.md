@@ -15,7 +15,7 @@ apt install curl wget sudo -y
 curl https://gitlab.com/volian/volian-archive/-/raw/main/install-nala.sh | bash
 
 # Use nala to update packages
-nala update -y
+nala update
 
 # Install additional packages
 nala install -y fish git curl wget nodejs npm
