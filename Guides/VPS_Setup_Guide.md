@@ -116,7 +116,7 @@ sudo supervisorctl update
 ```bash
 # Remove existing Docker packages (if installed)
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc
-    sudo apt-fast remove -y $pkg
+    sudo nala remove -y $pkg
 end
 
 # Install prerequisites (lsb-release, htop, etc.)
