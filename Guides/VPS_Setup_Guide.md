@@ -9,16 +9,13 @@ This guide contains a collection of commands for setting up a new Virtual Privat
 apt update
 
 # Install curl and wget
-apt install curl wget -y
+apt install curl wget sudo -y
 
 # Install nala (improved APT frontend)
 curl https://gitlab.com/volian/volian-archive/-/raw/main/install-nala.sh | bash
 
 # Use nala to update packages
 nala update -y
-
-# Use nala to install sudo
-nala install sudo -y
 
 # Install additional packages
 nala install -y fish git curl wget nodejs npm
