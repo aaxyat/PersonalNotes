@@ -72,7 +72,9 @@ sudo systemctl restart sshd
 ```bash
 # Install Oh My Fish
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+```
 
+```bash
 # Install bira theme for Oh My Fish
 omf install bira
 ```
