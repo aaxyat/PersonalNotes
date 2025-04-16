@@ -97,7 +97,7 @@ redirect_stderr=true
 stdout_logfile=/var/log/stress.log
 
 [program:memory_stress]
-command=/usr/bin/stress-ng --vm 1 --vm-bytes 15% --vm-hang 0
+command=/usr/bin/stress-ng --vm 1 --vm-bytes 15%% --vm-hang 0
 directory=/usr/bin/
 user=root
 autostart=true
